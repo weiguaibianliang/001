@@ -1,0 +1,101 @@
+server:
+    port: 8081
+logging:
+    config: classpath:logback.xml
+spring:
+    main:
+        allow-bean-definition-overriding: true
+    application:
+        name: test-shirtProcess-server
+    jmx:
+        enabled: false
+    datasource:
+        druid:
+            name: shirt-process
+            url: jdbc:mysql://localhost:3306/shirt-process?characterEncoding=utf8&allowMultiQueries=true&useSSL=false&serverTimezone=Asia/Shanghai
+            username: root
+            password: 123456
+            driver-class-name: com.mysql.cj.jdbc.Driver
+            # 下面为连接池的补充设置，应用到上面所有数据源中
+            initialSize: 5        # 初始化大小，最小，最大
+            minIdle: 5
+            maxActive: 20
+            maxWait: 60000 # 配置获取连接等待超时的时间
+            timeBetweenEvictionRunsMillis: 90000 # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+            minEvictableIdleTimeMillis: 300000 # 配置一个连接在池中最小生存的时间，单位是毫秒
+            validationQuery: SELECT 1 FROM DUAL
+            testWhileIdle: true
+            testOnBorrow: false
+            testOnReturn: false
+            poolPreparedStatements: true # 打开PSCache，并且指定每个连接上PSCache的大小
+            maxPoolPreparedStatementPerConnectionSize: 20
+            filters: ['stat','slf4j'] # 配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+            connectionProperties: 'druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000' # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
+
+redis:
+    host: dev.redis.md.com
+    password: md1234
+    database: 4
+    port: 6379
+    lettuce:
+        pool:
+            max-active: 8   # 连接池最大连接数（使用负值表示没有限制）
+            max-wait: '-1ms'
+            max-idle: 8  # 连接池中的最大空闲连接
+            min-idle: 0  # 连接池中的最小空闲连接
+    timeout: '5000ms'
+    rabbitmq:
+        virtual-host: /test
+        host: dev.rabbitmq.md.com
+        port: 5672
+        username: dps_test
+        password: dps_test
+        publisher-confirms: true #如果对异步消息需要回调必须设置为true
+        template:
+            retry:
+                enabled: true
+mybatis:
+    type-aliases-package:
+        - com.model
+    #        - com.assembly.oauth.model
+    #        - com.assembly.dfs.model
+    mapper-locations: ['classpath*:mapper/**/*.xml']
+    configuration:
+        map-underscore-to-camel-ftme: true
+        call-setters-on-nulls: true
+        log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+mapper:
+    mappers:
+        - com.assembly.oauth.web.MyMapper
+    style: normal
+    not-empty: false
+pagehelper:
+    helperDialect: mysql
+    reasonable: true
+    supportMethodsArguments: true
+    params: count=countSql
+
+management:
+    endpoints:
+        web:
+            exposure:
+                include: "*"
+seata:
+    enabled: false
+    application-id: ${spring.application.name}
+    tx-service-group: seataGroup-${seata.application-id}
+    service:
+        vgroup-mapping: default
+        grouplist: dev.nacos.md.com:8858
+    config:
+        type: file
+        file:
+            name: file.conf
+    registry:
+        type: file
+        file:
+            name: file.conf
+
+scheduled:
+    verification:
+        message: '0 0 10 * * ?' #每天上午10点和下午2点
