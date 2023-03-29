@@ -1,5 +1,8 @@
 package com.Enum;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public enum LapelEnum {
 
     /**
@@ -24,7 +27,13 @@ public enum LapelEnum {
     /**
      * 塔士多门襟（通常胸前有U形胸挡）
      */
-    TAS_TO_LAPEL(3,"塔士多门襟");
+    TAS_TO_LAPEL(3,"塔士多门襟"),
+
+    /**
+     * 襟开几个扣眼
+     */
+    OPEN_BUTTONHOLE(4,"开几个扣眼");
+
 
 
     private Integer type;
@@ -50,5 +59,14 @@ public enum LapelEnum {
     LapelEnum(int type, String name) {
         this.type = type;
         this.name = name;
+    }
+
+    public static Map<String, Integer> getFirstCharMap() {
+
+        Map<String,Integer> map = new HashMap<>(16);
+        for (LapelEnum lapelEnum : LapelEnum.values()) {
+            map.put(lapelEnum.getName().substring(0,1),lapelEnum.getType());
+        }
+        return map;
     }
 }

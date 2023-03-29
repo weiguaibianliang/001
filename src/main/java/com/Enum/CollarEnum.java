@@ -1,5 +1,12 @@
 package com.Enum;
 
+import org.apache.commons.compress.utils.Lists;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public enum CollarEnum {
 
     /**
@@ -92,4 +99,45 @@ public enum CollarEnum {
         this.type = type;
         this.name = name;
     }
+
+    public static String getNameByType(int type) {
+        for (CollarEnum collarEnum : CollarEnum.values()) {
+            if (collarEnum.getType() == type) {
+                return collarEnum.getName();
+            }
+        }
+        return null;
+    }
+
+    public static Map<String,List<Integer>> getFirsCharMap(){
+
+     Map<String,List<Integer>> map = new HashMap<>(16);
+        List<Integer> list = new ArrayList<>();
+        for (CollarEnum collarEnum : CollarEnum.values()) {
+            String s = collarEnum.getName().substring(0,1);
+            //判断首字是否有重复的枚举类型
+            if(map.containsKey(s)){
+                //添加重复元素对应的特征
+                list.add(collarEnum.getType());
+                map.put(s,list);
+            }else {
+                List<Integer> integerList = new ArrayList<>();
+                integerList.add(collarEnum.getType());
+                map.put(s, integerList);
+            }
+        }
+        return map;
+    }
+
+    public static Map<String, Integer> getSecondCharMap(List<Integer> integers) {
+
+        Map<String,Integer> map = new HashMap<>(16);
+        for (Integer integer : integers) {
+            String name = getNameByType(integer);
+            assert name != null;
+            map.put(name.substring(1,2),integer);
+        }
+        return map;
+    }
+
 }

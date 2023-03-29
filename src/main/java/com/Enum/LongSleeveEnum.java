@@ -11,7 +11,7 @@ public enum LongSleeveEnum {
      */
 
     /**
-     * 圆角袖克夫
+     * 圆角袖克夫（袖头、袖英）
      */
     ROUND_CUFF(0,"圆角袖克夫"),
 
@@ -74,6 +74,15 @@ public enum LongSleeveEnum {
      * 大小袖片拼缝式斜角袖衩条
      */
     LARGE_SMALL_TOGETHER_SLIT_STRIP(12,"大小袖片拼缝式斜角袖衩条");
+
+    /**
+     * 灯笼袖口
+     */
+
+    /**
+     * 窄袖头（克夫）
+     */
+
 
 
 

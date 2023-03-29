@@ -1,5 +1,8 @@
 package com.Enum;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public enum OverShoulderEnum {
 
 
@@ -40,5 +43,15 @@ public enum OverShoulderEnum {
     OverShoulderEnum(int type, String name) {
         this.type = type;
         this.name = name;
+    }
+
+    public static Map<String,Integer> getFirstCharMap(){
+
+        Map<String,Integer> map = new HashMap<>(16);
+        for (OverShoulderEnum overShoulderEnum : OverShoulderEnum.values()) {
+            map.put(overShoulderEnum.getName().substring(0,1),overShoulderEnum.getType());
+        }
+        return map;
+
     }
 }
