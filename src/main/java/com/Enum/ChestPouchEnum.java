@@ -129,7 +129,7 @@ public enum ChestPouchEnum {
             if(name.contains("右")){
                 integerMap.put("右",integer);
             }else {
-                integerMap.put("袋",integer);
+                integerMap.put("hu",integer);
             }
         }
         return integerMap;

@@ -2,7 +2,6 @@ package com.Enum;
 
 public enum PleatEnum {
 
-    //褶的个数不确定
 
     /**
      * 袖口有标准褶

@@ -35,7 +35,7 @@ public enum CollarEnum {
     WINDSOR_COLLAR(3,"温莎领"),
 
     /**
-     * 纽扣领
+     * 纽扣领（纽扣领一般有一颗扣或者两个扣）
      */
     BUTTON_DOWN_COLLAR(4,"纽扣领"),
 

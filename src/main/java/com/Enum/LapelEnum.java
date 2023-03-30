@@ -61,6 +61,18 @@ public enum LapelEnum {
         this.name = name;
     }
 
+
+    public static String getNameByType(int type){
+        for (LapelEnum lapelEnum : LapelEnum.values()) {
+            if(lapelEnum.getType() == type){
+                return lapelEnum.getName();
+            }
+        }
+        return null;
+    }
+
+
+
     public static Map<String, Integer> getFirstCharMap() {
 
         Map<String,Integer> map = new HashMap<>(16);

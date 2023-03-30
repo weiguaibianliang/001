@@ -45,6 +45,15 @@ public enum OverShoulderEnum {
         this.name = name;
     }
 
+    public static String getNameByType(int type){
+        for (OverShoulderEnum overShoulderEnum : OverShoulderEnum.values()) {
+            if(overShoulderEnum.getType() == type){
+                return overShoulderEnum.getName();
+            }
+        }
+        return null;
+    }
+
     public static Map<String,Integer> getFirstCharMap(){
 
         Map<String,Integer> map = new HashMap<>(16);

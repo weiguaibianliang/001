@@ -1,5 +1,10 @@
 package com.Enum;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public enum BackPieceEnum {
 
 
@@ -48,5 +53,52 @@ public enum BackPieceEnum {
     BackPieceEnum(int type, String name) {
         this.type = type;
         this.name = name;
+    }
+
+    public static String getNameByType(int type){
+        for (BackPieceEnum backPieceEnum : BackPieceEnum.values()) {
+            if(backPieceEnum.getType() == type){
+                return backPieceEnum.getName();
+            }
+        }
+        return null;
+    }
+
+
+    //提取首字的Map
+    public static Map<String, List<Integer>> getFirstCharMap(){
+        Map<String,List<Integer>> map = new HashMap<>(16);
+        List<Integer> list = new ArrayList<>();
+        for (BackPieceEnum backPieceEnum : BackPieceEnum.values()) {
+            String s = backPieceEnum.getName().substring(0,1);
+            //判断首字是否有重复的枚举类型
+            if(map.containsKey(s)){
+                //添加重复元素对应的特征
+                list.add(backPieceEnum.getType());
+                map.put(s,list);
+            }else {
+                List<Integer> integerList = new ArrayList<>();
+                integerList.add(backPieceEnum.getType());
+                map.put(s, integerList);
+            }
+        }
+        return map;
+    }
+
+
+    public static Map<String, Integer> getSecondCharMap(List<Integer> integers) {
+
+        Map<String,Integer> map = new HashMap<>(16);
+
+        for (Integer integer : integers) {
+            String name = getNameByType(integer);
+            assert name != null;
+            if(name.contains("不")){
+                map.put("不",integer);
+            }else {
+                map.put("hu",integer);
+            }
+        }
+        return map;
     }
 }
