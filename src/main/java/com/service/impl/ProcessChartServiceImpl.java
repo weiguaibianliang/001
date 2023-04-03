@@ -154,6 +154,8 @@ public class ProcessChartServiceImpl implements ProcessChartService {
         Map<String, Integer> buttonMap = new HashMap<>(16);
         //省的个数
         Map<String, Integer> provinceMap = new HashMap<>(16);
+        //褶的个数
+        Map<String,Integer> pleatMap = new HashMap<>(16);
 
         //获取生产订单信息
         ProduceOrderModel produceOrderModel = produceOrderService.findByProduceOrderNo(produceNo);
@@ -181,6 +183,7 @@ public class ProcessChartServiceImpl implements ProcessChartService {
                 char[] chars = str.toCharArray();
                 Map<String, List<Integer>> map = CollarEnum.getFirsCharMap();
                 for (char aChar : chars) {
+                    StringBuilder numberStr = new StringBuilder();
                     if (map.containsKey(String.valueOf(aChar))) {
                         if (map.get(String.valueOf(aChar)).size() == 1) {
                             //可选模块中插入领子的类型
@@ -199,6 +202,28 @@ public class ProcessChartServiceImpl implements ProcessChartService {
                             }
                         }
                     }
+                    //中文数字与阿拉伯数字的转换并判断
+                    if (Arrays.asList(CN_NUMERIC).contains(aChar)) {
+                        Map<Character, Integer> integerMap = PartsLibraryEnum.getButtonMap();
+                        Integer integer = integerMap.get(aChar);
+                        numberStr.append(integer);
+                    }
+                    //领的纽扣个数
+                    buttonMap.put("领", Integer.parseInt(String.valueOf(numberStr)));
+                }
+                String str2 = remarkStr[i + 1];
+                char[] chars1 = str2.toCharArray();
+                for (char bChar : chars1) {
+                    StringBuilder numberStr = new StringBuilder();
+                    //中文数字与阿拉伯数字的转换并判断
+                    if (Arrays.asList(CN_NUMERIC).contains(bChar) && !str2.contains(PartsLibraryEnum.PLEAT.getName()) && !str2.contains(PartsLibraryEnum.PROVINCE.getName())
+                            && !str2.contains(PartsLibraryEnum.CHEST_POUCH.getName()) && !str2.contains(PartsLibraryEnum.SLEEVE.getName())) {
+                        Map<Character, Integer> integerMap = PartsLibraryEnum.getButtonMap();
+                        Integer integer = integerMap.get(bChar);
+                        numberStr.append(integer);
+                    }
+                    //领的纽扣个数
+                    buttonMap.put("领", Integer.parseInt(String.valueOf(numberStr)));
                 }
             }
 
@@ -364,8 +389,8 @@ public class ProcessChartServiceImpl implements ProcessChartService {
                             }
                         }
                         //中间进行补充
-                    } else if ((remarkStr[i + 1].contains("前") || remarkStr[i + 1].contains("后")) && aChar != '前' && aChar != '后') {
-                        if (remarkStr[i + 1].contains("前")) {
+                    } else  {
+                        if (remarkStr[i - 1].contains("前") || remarkStr[i - 2].contains("前")) {
                             List<Integer> integerList = map.get("前");
                             Map<String, Integer> integerMap = ProvinceEnum.getSecondCharMap(integerList);
                             if (integerMap.containsKey(String.valueOf(aChar))) {
@@ -399,7 +424,7 @@ public class ProcessChartServiceImpl implements ProcessChartService {
              * 直下摆不开衩
              * 直下摆，不开衩
              */
-            if (str.contains(PartsLibraryEnum.HEM.getName())) {
+            if (str.contains(PartsLibraryEnum.HEM.getName()) && str.contains("衩")) {
                 //对于后片中的下摆以数字分析法建立哈希函数（首字）
                 char[] chars = str.toCharArray();
                 Map<String, List<Integer>> map = BackPieceEnum.getFirstCharMap();
@@ -414,10 +439,10 @@ public class ProcessChartServiceImpl implements ProcessChartService {
                             Map<String, Integer> integerMap = BackPieceEnum.getSecondCharMap(integers);
                             for (char bChar : chars) {
                                 if (integerMap.containsKey(String.valueOf(bChar))) {
-                                    //基本模块中插入领子的类型
+                                    //基本模块中插入下摆的类型
                                     basicMap.put(BackPieceEnum.getNameByType(integerMap.get(String.valueOf(bChar))), integerMap.get(String.valueOf(bChar)));
                                 } else {
-                                    //基本模块中插入领子的类型
+                                    //基本模块中插入下摆的类型
                                     basicMap.put(BackPieceEnum.getNameByType(integerMap.get("hu")), integerMap.get("hu"));
                                 }
                             }
@@ -425,9 +450,241 @@ public class ProcessChartServiceImpl implements ProcessChartService {
                     }
 
                 }
+            }
+            if(str.contains(PartsLibraryEnum.HEM.getName()) && !str.contains("衩")){
+                //对于后片中的下摆以数字分析法建立哈希函数（首字）
+                char[] chars = str.toCharArray();
+                Map<String, List<Integer>> map = BackPieceEnum.getFirstCharMap();
+                for (char aChar : chars) {
+                    if(map.containsKey(String.valueOf(aChar))){
+                        //得到首字相同的list
+                        List<Integer> integers = map.get(String.valueOf(aChar));
+                        Map<String, Integer> integerMap = BackPieceEnum.getSecondCharMap(integers);
+                        //判断下一个字符串
+                        char[] chars2 = remarkStr[i + 1].toCharArray();
+                        for (char bChar : chars2) {
+                            if (integerMap.containsKey(String.valueOf(bChar))) {
+                                //基本模块中插入下摆的类型
+                                basicMap.put(BackPieceEnum.getNameByType(integerMap.get(String.valueOf(bChar))), integerMap.get(String.valueOf(bChar)));
+                            } else {
+                                //基本模块中插入下摆的类型
+                                basicMap.put(BackPieceEnum.getNameByType(integerMap.get("hu")), integerMap.get("hu"));
+                            }
+                        }
+                    }
+                }
+            }
+
+            /*
+            褶、裥和省差不多的逻辑，褶和裥是同义词，可以相互替换。
+            1、判断袖上的褶（标准褶、多褶、碎褶）
+            （1）袖口开小袖衩,收碎褶
+            （2）袖口开小袖衩，袖口收碎褶
+            2、判断前片上的褶（前过肩褶、前腰褶、胸褶、胁褶、肚褶）
+            （1）左右前片收腋下省，有过肩褶（过肩还可以同义替换）
+            （2）左右前片收腋下省，有前过肩褶
+            3、判断后片上的褶（双肩褶、工字褶、腰褶）
+            （1）后片收腰省，有后背双肩褶
+            （2）后片收腰省，有双肩褶
+             */
+
+            if(str.contains(PartsLibraryEnum.FOLD.getName()) || str.contains(PartsLibraryEnum.PLEAT.getName())){
+                char[] chars = str.toCharArray();
+                //重复首字关键字map
+                Map<String,List<Integer>> repeatMap = PleatEnum.getMapByVitalRepeatChar();
+                //中间单独关键字map
+                Map<String,Integer> integerMap = PleatEnum.getMapByVitalChar();
+                for (char aChar : chars) {
+                    if(repeatMap.containsKey(String.valueOf(aChar))){
+                        //得到首字map对应的枚举类List
+                        List<Integer> list = repeatMap.get(String.valueOf(aChar));
+                        //重复关键字map,再进行一次筛选判断
+                        Map<String,Integer> map = PleatEnum.getMapByQueryVital(list);
+                        for (char bChar : chars) {
+                            if(map.containsKey(String.valueOf(bChar))){
+                                //特殊模块中插入褶的类型
+                                specialMap.put(PleatEnum.getNameByType(map.get(String.valueOf(bChar))),map.get(String.valueOf(bChar)));
+                            }
+                        }
+                    }else if(integerMap.containsKey(String.valueOf(aChar))){
+                        //特殊模块中插入褶的类型
+                        specialMap.put(PleatEnum.getNameByType(integerMap.get(String.valueOf(aChar))),integerMap.get(String.valueOf(aChar)));
+                    }else {
+                        if(remarkStr[i - 1].contains("前") || remarkStr[i - 2].contains("前")){
+                            List<Integer> integerList = repeatMap.get("前");
+                            //重复关键字map,再进行一次筛选判断
+                            Map<String,Integer> map = PleatEnum.getMapByQueryVital(integerList);
+                            for (char bChar : chars) {
+                                if(map.containsKey(String.valueOf(bChar))){
+                                    //特殊模块中插入褶的类型
+                                    specialMap.put(PleatEnum.getNameByType(map.get(String.valueOf(bChar))),map.get(String.valueOf(bChar)));
+                                }
+                            }
+                        }else if(remarkStr[i - 1].contains("后") || remarkStr[i - 2].contains("后")){
+                            List<Integer> integerList = repeatMap.get("后");
+                            //重复关键字map,再进行一次筛选判断
+                            Map<String,Integer> map = PleatEnum.getMapByQueryVital(integerList);
+                            for (char bChar : chars) {
+                                if(map.containsKey(String.valueOf(bChar))){
+                                    //特殊模块中插入褶的类型
+                                    specialMap.put(PleatEnum.getNameByType(map.get(String.valueOf(bChar))),map.get(String.valueOf(bChar)));
+                                }
+                            }
+                        }else if(remarkStr[i - 1].contains("袖") || remarkStr[i - 2].contains("袖")){
+                            List<Integer> integerList = repeatMap.get("袖");
+                            //重复关键字map,再进行一次筛选判断
+                            Map<String,Integer> map = PleatEnum.getMapByQueryVital(integerList);
+                            for (char bChar : chars) {
+                                if(map.containsKey(String.valueOf(bChar))){
+                                    //特殊模块中插入褶的类型
+                                    specialMap.put(PleatEnum.getNameByType(map.get(String.valueOf(bChar))),map.get(String.valueOf(bChar)));
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            /*
+            袖的逻辑（短袖、五分袖、七分袖、长袖）
+            1、短袖/五分袖/七分袖,没有袖衩条与袖克夫等特征
+            （1）平口
+            （2）叠口
+            2、长袖
+            （1）袖头与袖克夫和袖英是同义替换
+            （2）袖衩条
+            （3）开不开衩
+            （4）袖扣有多少粒
+             */
+
+            if(str.contains(PartsLibraryEnum.SHORT_SLEEVE.getName())){
+                char[] chars = str.toCharArray();
+                //得到首字特征map
+                Map<String,Integer> map = ShortSleeveEnum.getFirstCharMap();
+                for (char aChar : chars) {
+                    if(map.containsKey(String.valueOf(aChar))){
+                        //可选模块中插入袖的类型
+                        optionalMap.put(ShortSleeveEnum.getNameByType(map.get(String.valueOf(aChar))),map.get(String.valueOf(aChar)));
+                    }
+                }
+            }
+
+            if(str.contains(PartsLibraryEnum.FIVE_SLEEVE.getName())){
+                char[] chars = str.toCharArray();
+                //得到首字特征map
+                Map<String,Integer> map = FiveSleeveEnum.getFirstCharMap();
+                for (char aChar : chars) {
+                    if(map.containsKey(String.valueOf(aChar))){
+                        //可选模块中插入袖的类型
+                        optionalMap.put(FiveSleeveEnum.getNameByType(map.get(String.valueOf(aChar))),map.get(String.valueOf(aChar)));
+                    }
+                }
+
+            }
+
+            if(str.contains(PartsLibraryEnum.SEVENTH_SLEEVE.getName())){
+                char[] chars = str.toCharArray();
+                //得到首字特征map
+                Map<String,Integer> map = SevenSleeveEnum.getFirstCharMap();
+                for (char aChar : chars) {
+                    if(map.containsKey(String.valueOf(aChar))){
+                        //可选模块中插入袖的类型
+                        optionalMap.put(SevenSleeveEnum.getNameByType(map.get(String.valueOf(aChar))),map.get(String.valueOf(aChar)));
+                    }
+                }
+
+            }
+
+            if(str.contains(PartsLibraryEnum.LONG_SLEEVE.getName())){
+
+                //如果是长袖，那就把长袖后面的字符串全部截取掉，然后再进行判断袖的特征。
+                for (int j = i; j < remarkStr.length; j++){
+                    String string = remarkStr[j];
+                    //把字符串拆成字符数组
+                    char[] chars = string.toCharArray();
+                    StringBuilder numberStr = new StringBuilder();
+                    if(string.contains("袖英") || string.contains("袖克夫") || string.contains("袖头")){
+                        Map<String,Integer> map = LongSleeveEnum.getFirstCharCuffMap();
+                        for (char aChar : chars) {
+                            if(map.containsKey(String.valueOf(aChar))){
+                                //可选模块中插入袖的类型
+                                optionalMap.put(LongSleeveEnum.getNameByType(map.get(String.valueOf(aChar))),map.get(String.valueOf(aChar)));
+                            }
+                            //中文数字与阿拉伯数字的转换并判断
+                            if (Arrays.asList(CN_NUMERIC).contains(aChar)) {
+                                Map<Character, Integer> integerMap = PartsLibraryEnum.getButtonMap();
+                                Integer integer = integerMap.get(aChar);
+                                numberStr.append(integer);
+                            }
+                            //袖克夫的纽扣个数
+                            buttonMap.put("袖克夫", Integer.parseInt(String.valueOf(numberStr)));
+                        }
+                        String s = remarkStr[j + 1];
+                        char[] chars1 = s.toCharArray();
+                        for (char bChar : chars1 ){
+                            //中文数字与阿拉伯数字的转换并判断
+                            if (Arrays.asList(CN_NUMERIC).contains(bChar) && !s.contains("开衩")) {
+                                Map<Character, Integer> integerMap = PartsLibraryEnum.getButtonMap();
+                                Integer integer = integerMap.get(bChar);
+                                numberStr.append(integer);
+                            }
+                            //袖克夫的纽扣个数
+                            buttonMap.put("袖克夫", Integer.parseInt(String.valueOf(numberStr)));
+                        }
+
+                    }else if(string.contains("开衩")){
+                        StringBuilder numberStr1 = new StringBuilder();
+                        for (char aChar : chars) {
+                            if(aChar == '不'){
+                                //可选模块中插入袖的类型
+                                optionalMap.put(LongSleeveEnum.CUFF_WITHOUT_SLIT.getName(),LongSleeveEnum.CUFF_WITHOUT_SLIT.getType());
+                            }else {
+                                //可选模块中插入袖的类型
+                                optionalMap.put(LongSleeveEnum.CUFF_WITH_SLIT.getName(),LongSleeveEnum.CUFF_WITH_SLIT.getType());
+                            }
+                            //中文数字与阿拉伯数字的转换并判断
+                            if (Arrays.asList(CN_NUMERIC).contains(aChar)) {
+                                Map<Character, Integer> integerMap = PartsLibraryEnum.getButtonMap();
+                                Integer integer = integerMap.get(aChar);
+                                numberStr.append(integer);
+                            }
+                            //袖衩的纽扣个数
+                            buttonMap.put("袖衩", Integer.parseInt(String.valueOf(numberStr)));
+                        }
+                        String s = remarkStr[j + 1];
+                        char[] chars1 = s.toCharArray();
+                        for (char bChar : chars1 ){
+                            //中文数字与阿拉伯数字的转换并判断
+                            if (Arrays.asList(CN_NUMERIC).contains(bChar) && !s.contains(PartsLibraryEnum.PLEAT.getName()) && !s.contains(PartsLibraryEnum.PROVINCE.getName())
+                            && !s.contains(PartsLibraryEnum.CHEST_POUCH.getName()) && !s.contains(PartsLibraryEnum.COLLAR.getName())) {
+                                Map<Character, Integer> integerMap = PartsLibraryEnum.getButtonMap();
+                                Integer integer = integerMap.get(bChar);
+                                numberStr.append(integer);
+                            }
+                            //袖衩的纽扣个数
+                            buttonMap.put("袖衩", Integer.parseInt(String.valueOf(numberStr)));
+                        }
+
+                    }else if(string.contains("袖衩条")){
+                        Map<String,Integer> integerMap = LongSleeveEnum.getSpecialCharMap();
+                        for (char bChar : chars) {
+                            if(integerMap.containsKey(String.valueOf(bChar))){
+                                //可选模块中插入袖的类型
+                                optionalMap.put(LongSleeveEnum.getNameByType(integerMap.get(String.valueOf(bChar))),integerMap.get(String.valueOf(bChar)));
+                            }
+                        }
+
+                    }else if(string.contains("灯笼袖口")){
+                        //可选模块中插入袖的类型
+                        optionalMap.put(LongSleeveEnum.LANTERN_CUFF.getName(),LongSleeveEnum.LANTERN_CUFF.getType());
+                    }
+                }
+
+
 
 
             }
+
 
 
         }

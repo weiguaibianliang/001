@@ -1,5 +1,8 @@
 package com.Enum;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public enum ShortSleeveEnum {
 
     /**
@@ -38,5 +41,25 @@ public enum ShortSleeveEnum {
     ShortSleeveEnum(int type, String name) {
         this.type = type;
         this.name = name;
+    }
+
+    public static String getNameByType(int type){
+
+        for (ShortSleeveEnum shortSleeveEnum : ShortSleeveEnum.values()) {
+            if(shortSleeveEnum.getType() == type){
+                return shortSleeveEnum.getName();
+            }
+        }
+        return null;
+    }
+
+    //通过首字的数学分析法建立哈希函数
+    public static Map<String,Integer> getFirstCharMap(){
+        Map<String,Integer> map = new HashMap<>(16);
+        for (ShortSleeveEnum shortSleeveEnum : ShortSleeveEnum.values()) {
+            String str = shortSleeveEnum.getName().substring(0,1);
+            map.put(str, shortSleeveEnum.getType());
+        }
+        return map;
     }
 }
