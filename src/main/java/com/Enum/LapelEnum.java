@@ -27,13 +27,7 @@ public enum LapelEnum {
     /**
      * 塔士多门襟（通常胸前有U形胸挡）
      */
-    TAS_TO_LAPEL(3,"塔士多门襟"),
-
-    /**
-     * 襟开几个扣眼
-     */
-    OPEN_BUTTONHOLE(4,"开几个扣眼");
-
+    TAS_TO_LAPEL(3,"塔士多门襟");
 
 
     private Integer type;

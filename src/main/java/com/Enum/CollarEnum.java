@@ -112,12 +112,12 @@ public enum CollarEnum {
     public static Map<String,List<Integer>> getFirsCharMap(){
 
      Map<String,List<Integer>> map = new HashMap<>(16);
-        List<Integer> list = new ArrayList<>();
         for (CollarEnum collarEnum : CollarEnum.values()) {
             String s = collarEnum.getName().substring(0,1);
             //判断首字是否有重复的枚举类型
             if(map.containsKey(s)){
                 //添加重复元素对应的特征
+                List<Integer> list = map.get(s);
                 list.add(collarEnum.getType());
                 map.put(s,list);
             }else {

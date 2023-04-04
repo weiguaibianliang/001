@@ -133,6 +133,16 @@ public enum PartsLibraryEnum {
         cnNumeric.put('仟', 1000);
         cnNumeric.put('万', 10000);
         cnNumeric.put('亿', 100000000);
+        cnNumeric.put('0',0);
+        cnNumeric.put('1',1);
+        cnNumeric.put('2',2);
+        cnNumeric.put('3',3);
+        cnNumeric.put('4',4);
+        cnNumeric.put('5',5);
+        cnNumeric.put('6',6);
+        cnNumeric.put('7',7);
+        cnNumeric.put('8',8);
+        cnNumeric.put('9',9);
         return cnNumeric;
     }
 

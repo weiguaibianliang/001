@@ -103,17 +103,16 @@ public enum ProvinceEnum {
     public static Map<String, List<Integer>> getFirsCharMap(){
 
         Map<String,List<Integer>> map = new HashMap<>(16);
-        List<Integer> provinceList = new ArrayList<>();
         for (ProvinceEnum provinceEnum : ProvinceEnum.values()) {
             String str = provinceEnum.name.substring(0,1);
             //判断首字是否有重复的枚举类型
             if(map.containsKey(str)){
                 //添加重复元素对应的特征
-                provinceList.add(provinceEnum.getType());
-                map.put(str,provinceList);
+                List<Integer> list = map.get(str);
+                list.add(provinceEnum.getType());
+                map.put(str,list);
             }else {
                 //腋下省和胁省
-
                 List<Integer> integerList = new ArrayList<>();
                 integerList.add(provinceEnum.getType());
                 map.put(str, integerList);
