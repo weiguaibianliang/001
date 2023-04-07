@@ -30,7 +30,7 @@ public enum CollarEnum {
     SMALL_SQUARE_COLLAR(2,"小方领"),
 
     /**
-     * 温莎领（温莎一字领，温莎八字领）
+     * 温莎领（温莎一字领，温莎八字领，敞角领）
      */
     WINDSOR_COLLAR(3,"温莎领"),
 
@@ -60,7 +60,7 @@ public enum CollarEnum {
     EATON_COLLAR(8,"伊顿领"),
 
     /**
-     * 尖角领
+     * 尖角领（长尖领、短尖领）
      */
     LONG_POINTED_COLLAR(9,"尖角领"),
 
@@ -72,7 +72,34 @@ public enum CollarEnum {
     /**
      * 古巴领
      */
-    CUBAN_COLLAR(11,"古巴领");
+    CUBAN_COLLAR(11,"古巴领"),
+
+    /**
+     * 暗扣领
+     */
+    CONCEAL_BUTTON_COLLAR(12,"暗扣领"),
+
+    /**
+     * 异色领
+     */
+    HETERO_CHROMATIC_COLLAR(13,"异色领"),
+
+    /**
+     * 棒球领
+     */
+    BASEBALL_COLLAR(14,"棒球领"),
+
+    /**
+     * 双层领
+     */
+    DOUBLE_LAYER_COLLAR(15,"双层领"),
+
+    /**
+     * 窄角领
+     */
+    NARROW_HORN_COLLAR(16,"窄角领");
+
+
 
 
     private Integer type;

@@ -27,14 +27,14 @@ public enum LongSleeveEnum {
     STRAIGHT_CUFF(1,"直角袖克夫"),
 
     /**
-     * 截角袖克夫
+     * 截角（切角）袖克夫
      */
     SLANT_CUFF(2,"截角袖克夫"),
 
     /**
-     * 法式叠袖袖克夫
+     * 法式双叠袖袖克夫
      */
-    FRENCH_FOLD_CUFF(3,"法式叠袖袖克夫"),
+    FRENCH_FOLD_CUFF(3,"法式双叠袖袖克夫"),
 
     /**
      * 米兰袖袖克夫

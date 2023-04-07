@@ -12,7 +12,6 @@ public enum PleatEnum {
      * 袖口标准褶
      */
     STANDARD_PLEAT_CUFF(0,"袖口标准褶"),
-
     /**
      * 袖口多褶
      */
@@ -23,10 +22,6 @@ public enum PleatEnum {
      */
     CRUSH_PLEAT_CUFF(2,"袖口碎褶"),
 
-//    /**
-//     * 后背无褶
-//     */
-//    NO_PLEAT_BACK(3,"后背无褶"),
 
     /**
      * 后背双肩褶

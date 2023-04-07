@@ -30,12 +30,12 @@ public enum ChestPouchEnum {
     LEFT_RIGHT_STRAIGHT_PATCH_1(3,"左右胸直角明贴袋各1个"),
 
     /**
-     * 左胸截角明贴袋1个
+     * 左胸截角明贴袋1个(切角)
      */
     LEFT_SLANT_PATCH_1(4,"左胸截角明贴袋1个"),
 
     /**
-     * 左右胸截角明贴袋各一个
+     * 左右胸截角明贴袋各一个（切角）
      */
     LEFT_RIGHT_SLANT_PATCH_1(5,"左右胸截角明贴袋各1个"),
 

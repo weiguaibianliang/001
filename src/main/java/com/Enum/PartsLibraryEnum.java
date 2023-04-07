@@ -48,7 +48,7 @@ public enum PartsLibraryEnum {
     /**
      * 下摆
      */
-    HEM(7,"下摆"),
+    HEM(7,"摆"),
 
     /**
      * U形胸挡
@@ -79,6 +79,14 @@ public enum PartsLibraryEnum {
      * 七分袖
      */
     SEVENTH_SLEEVE(13,"七分袖");
+
+    /**
+     * 套头衫
+     */
+
+    /**
+     * 无领 —— 圆领、一字领、V领
+     */
 
 
     private Integer type;

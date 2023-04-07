@@ -20,7 +20,7 @@ public enum LapelEnum {
     DARK_LAPEL(1,"暗门襟"),
 
     /**
-     * 软门襟
+     * 软门襟（法式门襟、平门襟）
      */
     SOFT_LAPEL(2,"软门襟"),
 
