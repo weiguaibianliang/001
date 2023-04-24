@@ -15,7 +15,7 @@ public enum CollarEnum {
 
 
     /**
-     * 标准
+     * 标准(翻立领)
      */
     STANDARD(0,"标准领"),
 
@@ -25,9 +25,9 @@ public enum CollarEnum {
     STAND_UP_COLLAR(1,"立领"),
 
     /**
-     * 小方领
+     * 方角领（小方领，方领）
      */
-    SMALL_SQUARE_COLLAR(2,"小方领"),
+    SMALL_SQUARE_COLLAR(2,"方角领"),
 
     /**
      * 温莎领（温莎一字领，温莎八字领，敞角领）
@@ -60,7 +60,7 @@ public enum CollarEnum {
     EATON_COLLAR(8,"伊顿领"),
 
     /**
-     * 尖角领（长尖领、短尖领）
+     * 尖角领
      */
     LONG_POINTED_COLLAR(9,"尖角领"),
 
@@ -97,7 +97,18 @@ public enum CollarEnum {
     /**
      * 窄角领
      */
-    NARROW_HORN_COLLAR(16,"窄角领");
+    NARROW_HORN_COLLAR(16,"窄角领"),
+
+
+    /**
+     * 长尖领
+     */
+    LONG_POINT_COLLAR(17,"长尖领"),
+
+    /**
+     * 短尖领
+     */
+    SHORT_POINT_COLLAR(18,"短尖领");
 
 
 

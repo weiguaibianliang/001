@@ -15,7 +15,7 @@ public enum LapelEnum {
     MING_MEN_LAPEL(0,"明门襟"),
 
     /**
-     * 暗门襟
+     * 暗门襟(隐藏式门襟)
      */
     DARK_LAPEL(1,"暗门襟"),
 

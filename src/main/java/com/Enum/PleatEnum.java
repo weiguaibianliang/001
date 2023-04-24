@@ -26,52 +26,52 @@ public enum PleatEnum {
     /**
      * 后背双肩褶
      */
-    DOUBLE_SHOULDER_PLEAT_BACK(4,"后背双肩褶"),
+    DOUBLE_SHOULDER_PLEAT_BACK(3,"后背双肩褶"),
 
     /**
      * 后背工字褶
      */
-    I_BEAM_PLEAT_BACK(5,"后背工字褶"),
+    I_BEAM_PLEAT_BACK(4,"后背工字褶"),
 
     /**
      * 后腰褶
      */
-    WAIST_PLEAT_BACK(6,"后腰褶"),
+    WAIST_PLEAT_BACK(5,"后腰褶"),
 
     /**
      * 褶皱领
      */
-    COLLAR_PLEAT(7,"褶皱领"),
+    COLLAR_PLEAT(6,"褶皱领"),
 
     /**
      * 前过肩褶
      */
-    FRONT_OVER_SHOULDER_PLEAT(8,"前过肩褶"),
+    FRONT_OVER_SHOULDER_PLEAT(7,"前过肩褶"),
     
     /**
      * 领窝褶
      */
-    COLLAR_NEST_PLEAT(9,"领窝褶"),
+    COLLAR_NEST_PLEAT(8,"领窝褶"),
 
     /**
      * 前腰褶
      */
-    WAIST_PLEAT_FRONT(10,"前腰褶"),
+    WAIST_PLEAT_FRONT(9,"前腰褶"),
 
     /**
      * 胸褶
      */
-    BREAST_PLEAT(11,"胸褶"),
+    BREAST_PLEAT(10,"胸褶"),
 
     /**
      * 肚褶
      */
-    BELLY_PLEAT(12,"肚褶"),
+    BELLY_PLEAT(11,"肚褶"),
 
     /**
      * 胁褶/腋下褶
      */
-    COERCIVE_PLEAT(13,"胁褶");
+    COERCIVE_PLEAT(12,"胁褶");
 
 
 

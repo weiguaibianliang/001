@@ -15,7 +15,7 @@ public enum ChestPouchEnum {
     LEFT_ROUND_PATCH_1(0,"左胸圆角明贴袋1个"),
 
     /**
-     * 左右胸圆角明贴袋各1个
+     * 左右胸圆角明贴袋各1个（双侧对称圆角明贴袋）
      */
     LEFT_RIGHT_ROUND_PATCH_1(1,"左右胸圆角明贴袋各1个"),
 
@@ -58,6 +58,13 @@ public enum ChestPouchEnum {
      * 左右胸假袋各一个
      */
     LEFT_RIGHT_PROSTHETIC_1(9,"左右胸假袋各1个");
+
+    /**
+     * 左胸袋盖式贴袋1个
+     */
+    /**
+     * 左右胸袋盖式贴袋各1个
+     */
 
 
 

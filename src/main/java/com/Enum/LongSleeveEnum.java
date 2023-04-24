@@ -12,9 +12,6 @@ public enum LongSleeveEnum {
      * 袖身形状：平袖、圆袖、插肩袖、蓬蓬袖、塔袖、喇叭袖、马蹄袖
      */
 
-    /**
-     * 袖口多少粒得考虑
-     */
 
     /**
      * 圆角袖克夫（袖头、袖英）
@@ -82,14 +79,25 @@ public enum LongSleeveEnum {
     LARGE_SMALL_TOGETHER_SLIT_STRIP(12,"大小袖片拼缝式斜角袖衩条"),
 
     /**
-     * 灯笼袖口
+     * 灯笼袖口（常见的是女士衬衫特有，但现在越来越多的男性衣服采用灯笼袖口，追求时尚感）
      */
     LANTERN_CUFF(13,"灯笼袖口"),
 
     /**
+     * 常规袖口（标准袖口）
+     * 常规袖口通常指袖口的形状是矩形或圆角矩形，即没有开衩或者其他特殊装饰
+     */
+    REGULAR_CUFF(14,"常规袖口"),
+
+    /**
      * 窄袖头（克夫）
      */
-    NARROW_SLEEVE_HEAD(14,"窄袖头");
+    NARROW_SLEEVE_HEAD(15,"窄袖头"),
+
+    /**
+     * 肘部拼接袖口
+     */
+    ELBOW_PATCHWORK_CUFF(16,"肘部拼接袖口");
 
 
 

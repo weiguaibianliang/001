@@ -11,14 +11,20 @@ public enum OverShoulderEnum {
      */
 
     /**
-     * 后肩育克
+     * 后肩育克（只有后片那里是双层的，前片直接与后肩育克相连）
      */
     REAR_SHOULDER_YUKON(0,"后肩育克"),
 
     /**
-     * 前后肩育克
+     * 前后肩育克（前后肩缝合形成双层过肩是指前后两片衬衫分别带有肩部结构，在缝合后形成的过肩处是双层的）
+     * 双层过肩
      */
-    FRONT_REAR_SHOULDER_YUKON(0,"前后肩育克");
+    FRONT_REAR_SHOULDER_YUKON(1,"前后肩育克"),
+
+    /**
+     * 前片与后片合并成单独的过肩
+     */
+    FRONT_MERGE_BACK_SHOULDER(2,"前片与后片合并成单独的过肩");
 
     private Integer type;
 
