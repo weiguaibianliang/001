@@ -58,6 +58,11 @@ public enum LongSleeveEnum {
      */
     PI_PA_SLIT_STRIP(8,"琵琶袖衩条"),
 
+//    /**
+//     * 宝箭头袖衩条
+//     */
+//    TREASURE_ARROW_SLIT_STRIP(8,"宝箭头袖衩条"),
+
     /**
      * 暗袖衩条
      */
@@ -97,8 +102,13 @@ public enum LongSleeveEnum {
     /**
      * 肘部拼接袖口
      */
-    ELBOW_PATCHWORK_CUFF(16,"肘部拼接袖口");
+    ELBOW_PATCHWORK_CUFF(16,"肘部拼接袖口"),
 
+    /**
+     * 半袖套（是一种固定衬衫袖口位置的配件，通常由一条或多条带子组成，将袖子收紧并固定在手臂上，以防止袖子滑动或卷起。
+     * 半袖套通常只适用于长袖衬衫，而不是短袖衬衫。）
+     */
+    HALF_SLEEVE_COVERS(17,"半袖套");
 
 
 
@@ -165,6 +175,16 @@ public enum LongSleeveEnum {
         map.put("贴",LongSleeveEnum.SPECIAL_EXTERNAL_PI_PA_SLIT_STRIP.getType());
         map.put("拼",LongSleeveEnum.LARGE_SMALL_TOGETHER_SLIT_STRIP.getType());
         return map;
+    }
+
+    public static Map<String,Integer> getImportantMap(){
+        Map<String,Integer> map = new HashMap<>(16);
+        map.put("灯笼",LongSleeveEnum.LANTERN_CUFF.getType());
+        map.put("常规",LongSleeveEnum.REGULAR_CUFF.getType());
+        map.put("肘部",LongSleeveEnum.ELBOW_PATCHWORK_CUFF.getType());
+
+        return map;
+
     }
 
 

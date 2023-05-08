@@ -5,12 +5,7 @@ public enum FrontPieceEnum {
     /**
      * 标准
      */
-    STANDARD(0,"标准"),
-
-    /**
-     * U形胸挡
-     */
-    U_CHEST_BLOCK(1,"U形胸挡");
+    STANDARD(0,"标准");
 
     private Integer type;
 

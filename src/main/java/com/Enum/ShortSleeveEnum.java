@@ -6,15 +6,24 @@ import java.util.Map;
 public enum ShortSleeveEnum {
 
     /**
+     * 标准短袖
+     */
+    STANDARD_SHORT_SLEEVE(0,"标准短袖"),
+
+    /**
      * 平口短袖
      */
-    FLAT_SHORT_SLEEVE(0,"平口短袖"),
+    FLAT_SHORT_SLEEVE(1,"平口短袖"),
 
     /**
      * 叠口短袖
      */
-    FOLD_SHORT_SLEEVE(1,"叠口短袖");
+    FOLD_SHORT_SLEEVE(2,"叠口短袖"),
 
+    /**
+     * 分割短袖
+     */
+    SPLIT_SHORT_SLEEVE(3,"分割短袖");
 
 
 

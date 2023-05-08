@@ -50,44 +50,26 @@ public enum PartsLibraryEnum {
      */
     HEM(7,"摆"),
 
-    /**
-     * U形胸挡
-     */
-    U_CHEST_BLOCK(8,"U形胸挡"),
 
     /**
      * 袖
      */
-    SLEEVE(9,"袖"),
-
-    /**
-     * 长袖
-     */
-    LONG_SLEEVE(10,"长袖"),
+    SLEEVE(8,"袖"),
 
     /**
      * 短袖
      */
-    SHORT_SLEEVE(11,"短袖"),
+    SHORT_SLEEVE(9,"短袖"),
 
     /**
      * 五分袖
      */
-    FIVE_SLEEVE(12,"五分袖"),
+    FIVE_SLEEVE(10,"五分袖"),
 
     /**
      * 七分袖
      */
-    SEVENTH_SLEEVE(13,"七分袖");
-
-    /**
-     * 套头衫
-     */
-
-    /**
-     * 无领 —— 圆领、一字领、V领
-     */
-
+    SEVENTH_SLEEVE(11,"七分袖");
 
     private Integer type;
 

@@ -20,9 +20,24 @@ public enum LapelEnum {
     DARK_LAPEL(1,"暗门襟"),
 
     /**
+     * 隐藏式门襟
+     */
+    HIDDEN_LAPEL(1,"隐藏式门襟"),
+
+    /**
      * 软门襟（法式门襟、平门襟）
      */
     SOFT_LAPEL(2,"软门襟"),
+
+    /**
+     * 法式门襟
+     */
+    FRENCH_STYLE_LAPEL(2,"法式门襟"),
+
+    /**
+     * 平门襟
+     */
+    FLAT_LAPEL(3,"平门襟"),
 
     /**
      * 塔士多门襟（通常胸前有U形胸挡）

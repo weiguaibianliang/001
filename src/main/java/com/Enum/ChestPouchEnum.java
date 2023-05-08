@@ -57,14 +57,17 @@ public enum ChestPouchEnum {
     /**
      * 左右胸假袋各一个
      */
-    LEFT_RIGHT_PROSTHETIC_1(9,"左右胸假袋各1个");
+    LEFT_RIGHT_PROSTHETIC_1(9,"左右胸假袋各1个"),
 
     /**
      * 左胸袋盖式贴袋1个
      */
+    LEFT_COVER_PATCH_POCKET_1(10,"左胸袋盖式贴袋1个"),
+
     /**
      * 左右胸袋盖式贴袋各1个
      */
+    LEFT_RIGHT_COVER_PATCH_POCKET_1(11,"左右胸袋盖式贴袋各一个");
 
 
 
@@ -111,11 +114,13 @@ public enum ChestPouchEnum {
         List<Integer> list3 = list.stream().filter(s -> Objects.requireNonNull(getNameByType(s)).contains("直角")).collect(Collectors.toList());
         List<Integer> list4 = list.stream().filter(s -> Objects.requireNonNull(getNameByType(s)).contains("挖")).collect(Collectors.toList());
         List<Integer> list5 = list.stream().filter(s -> Objects.requireNonNull(getNameByType(s)).contains("假")).collect(Collectors.toList());
+        List<Integer> list6 = list.stream().filter(s -> Objects.requireNonNull(getNameByType(s)).contains("袋盖")).collect(Collectors.toList());
         map.put("圆角",list1);
         map.put("截角",list2);
         map.put("直角",list3);
         map.put("挖",list4);
         map.put("假",list5);
+        map.put("袋盖",list6);
         return map;
     }
 
@@ -133,7 +138,7 @@ public enum ChestPouchEnum {
         for (Integer integer : integers) {
             String name = getNameByType(integer);
             assert name != null;
-            if(name.contains("右")){
+            if(name.contains("右") || name.contains("对称")){
                 integerMap.put("右",integer);
             }else {
                 integerMap.put("hu",integer);

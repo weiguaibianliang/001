@@ -19,14 +19,24 @@ public enum BackPieceEnum {
     STRAIGHT_WITH_HEM(1,"直下摆开衩"),
 
     /**
+     * 方下摆不开衩
+     */
+    SQUARE_WITHOUT_HEM(0,"方下摆不开衩"),
+
+    /**
+     * 方下摆开衩
+     */
+    SQUARE_WITH_HEM(1,"方下摆开衩"),
+
+    /**
      * 圆下摆不开衩
      */
-    ROUND_WITHOUT_HEM(1,"圆下摆不开衩"),
+    ROUND_WITHOUT_HEM(2,"圆下摆不开衩"),
 
     /**
      * 圆下摆开衩
      */
-    ROUND_WITH_HEM(1,"圆下摆开衩");
+    ROUND_WITH_HEM(3,"圆下摆开衩");
 
 
 

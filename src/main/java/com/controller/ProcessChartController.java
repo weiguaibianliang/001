@@ -28,7 +28,7 @@ public class ProcessChartController {
     /**
      *基本款式工艺模块：前片、后片（包含下摆）、门襟、
      */
-    @ApiOperation("获取工基本模块工序")
+    @ApiOperation("获取基本模块工序")
     @GetMapping("getBasicModuleProcess")
     public RestResponse getBasicModuleProcess(@RequestParam("produceOrderNo") String produceOrderNo){
         return new Success<>(processChartService.getBasicModuleProcess(produceOrderNo));

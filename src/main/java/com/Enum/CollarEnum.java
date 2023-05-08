@@ -12,6 +12,7 @@ public enum CollarEnum {
     /**
      * 领子上的纽扣得考虑
      */
+    //map中，多个key可以对应一个value
 
 
     /**
@@ -108,7 +109,48 @@ public enum CollarEnum {
     /**
      * 短尖领
      */
-    SHORT_POINT_COLLAR(18,"短尖领");
+    SHORT_POINT_COLLAR(18,"短尖领"),
+
+    /**
+     * 小方领
+     */
+    SQUARE_CORNER_COLLAR(2,"小方领"),
+
+    /**
+     * 方领
+     */
+    SQUARE_COLLAR(2,"方领"),
+
+    /**
+     * 敞角领
+     */
+    OPEN_HORN_COLLAR(3,"敞角领"),
+
+    /**
+     * 燕子领
+     */
+    SWALLOW_COLLAR(7,"燕子领"),
+
+    /**
+     * 双翼领
+     */
+    DOUBLE_WING_LEADER(7,"双翼领"),
+
+    /**
+     * 圆角领
+     */
+    ROUNDED_COLLAR(8,"圆角领"),
+
+    /**
+     * 翻立领
+     */
+    LAPEL_COLLAR(0,"翻立领"),
+
+    /**
+     * 无领
+     */
+    NO_COLLAR(19,"无领");
+
 
 
 
@@ -173,7 +215,35 @@ public enum CollarEnum {
         for (Integer integer : integers) {
             String name = getNameByType(integer);
             assert name != null;
-            map.put(name.substring(1,2),integer);
+            if(name.contains("尖")){
+                if(name.contains("角")){
+                    map.put(getNameByType(integer),integer);
+                }else if(name.contains("短")){
+                    map.put(getNameByType(integer),integer);
+                }else {
+                    map.put(getNameByType(integer),integer);
+                }
+            }else if(name.contains("方")){
+                if(name.contains("角")){
+                    map.put(getNameByType(integer),integer);
+                }else if(name.contains("小")){
+                    map.put(getNameByType(integer),integer);
+                }else {
+                    map.put(getNameByType(integer),integer);
+                }
+            }else if(name.contains("翼")){
+                if(name.contains("双")){
+                    map.put(getNameByType(integer),integer);
+                }else {
+                    map.put(getNameByType(integer),integer);
+                }
+            }else if(name.contains("双")){
+                if(name.contains("层")){
+                    map.put(getNameByType(integer),integer);
+                }else if(name.contains("翼")){
+                    map.put(getNameByType(integer),integer);
+                }
+            }
         }
         return map;
     }

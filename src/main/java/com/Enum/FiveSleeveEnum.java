@@ -6,14 +6,19 @@ import java.util.Map;
 public enum FiveSleeveEnum {
 
     /**
+     * 标准五分袖
+     */
+    STANDARD_FIVE_SLEEVE(0,"标准五分袖"),
+
+    /**
      * 平口五分袖
      */
-    FLAT_FIVE_SLEEVE(0,"平口五分袖"),
+    FLAT_FIVE_SLEEVE(1,"平口五分袖"),
 
     /**
      * 叠口五分袖
      */
-    FOLD_FIVE_SLEEVE(1,"叠口五分袖");
+    FOLD_FIVE_SLEEVE(2,"叠口五分袖");
 
 
     private Integer type;

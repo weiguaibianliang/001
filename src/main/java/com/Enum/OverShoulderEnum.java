@@ -1,6 +1,8 @@
 package com.Enum;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public enum OverShoulderEnum {
@@ -8,6 +10,9 @@ public enum OverShoulderEnum {
 
     /**
      * 过肩类型：落肩、正肩、插肩（根据肩线的位置来判断）
+     */
+    /**
+     * 休闲衬衫有的没有过多的肩部结构和剪裁，衣领和袖口通常直接连接，没有过肩片或肩部加强结构。
      */
 
     /**
@@ -22,7 +27,8 @@ public enum OverShoulderEnum {
     FRONT_REAR_SHOULDER_YUKON(1,"前后肩育克"),
 
     /**
-     * 前片与后片合并成单独的过肩
+     * 前片与后片合并成单独的过肩(这种不需要单独的过肩片设计，前片和后片的肩线会被合并成一个单独的过肩线，
+     * 袖子则是分别缝制在前后片上的。)
      */
     FRONT_MERGE_BACK_SHOULDER(2,"前片与后片合并成单独的过肩");
 
@@ -60,7 +66,14 @@ public enum OverShoulderEnum {
         return null;
     }
 
-    public static Map<String,Integer> getFirstCharMap(){
+    public static List<String> getListByVital(){
+        List<String> list = new ArrayList<>();
+        list.add("前");
+        list.add("后");
+        list.add("合并");
+        return list;
+    }
+    public static Map<String,Integer> getVitalCharMap(){
 
         Map<String,Integer> map = new HashMap<>(16);
         for (OverShoulderEnum overShoulderEnum : OverShoulderEnum.values()) {
