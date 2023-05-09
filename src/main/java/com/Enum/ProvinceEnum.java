@@ -57,7 +57,12 @@ public enum ProvinceEnum {
     /**
      * 后腰省
      */
-    BACK_SAVE_PROVINCE(9,"后腰省");
+    BACK_SAVE_PROVINCE(9,"后腰省"),
+
+    /**
+     * 前胸省
+     */
+    FRONT_CHEST_PROVINCE(10,"前胸省");
 
 
 

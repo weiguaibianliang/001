@@ -175,15 +175,29 @@ public class ProcessChartServiceImpl implements ProcessChartService {
             //TODO 这一块逻辑也需要修改
             if (str.contains(SpecialProcessEnum.U_CHEST_BLOCK.getName())) {
                 //特殊模块里面插入U形胸挡
-                specialMap.put(SpecialProcessEnum.U_CHEST_BLOCK.getName(), SpecialProcessEnum.U_CHEST_BLOCK.getType());
+                specialMap.put("前片" + SpecialProcessEnum.U_CHEST_BLOCK.getName(), SpecialProcessEnum.U_CHEST_BLOCK.getType());
+            }
+            if (str.contains(SpecialProcessEnum.U_SHAPED_YUKON.getName())) {
+                //特殊模块里面插入U形育克
+                specialMap.put("前片" + SpecialProcessEnum.U_SHAPED_YUKON.getName(), SpecialProcessEnum.U_SHAPED_YUKON.getType());
             }
             if (str.contains(SpecialProcessEnum.DECORATIVE_TABS.getName())) {
                 //特殊模块里面插入装饰袢
-                specialMap.put(SpecialProcessEnum.DECORATIVE_TABS.getName(), SpecialProcessEnum.DECORATIVE_TABS.getType());
+                Map<String,Integer> map = SpecialPartsEnum.getSpecialPartsMap();
+                for (String s : map.keySet()) {
+                    if(str.contains(s)){
+                        specialMap.put(s+SpecialProcessEnum.DECORATIVE_TABS.getName(), SpecialProcessEnum.DECORATIVE_TABS.getType());
+                    }
+                }
             }
             if (str.contains(SpecialProcessEnum.DECORATION_DIVISION.getName())) {
                 //特殊模块里面插入装饰分割
-                specialMap.put(SpecialProcessEnum.DECORATION_DIVISION.getName(), SpecialProcessEnum.DECORATION_DIVISION.getType());
+                Map<String,Integer> map = SpecialPartsEnum.getSpecialPartsMap();
+                for (String s : map.keySet()) {
+                    if(str.contains(s)){
+                        specialMap.put(s+SpecialProcessEnum.DECORATION_DIVISION.getName(), SpecialProcessEnum.DECORATION_DIVISION.getType());
+                    }
+                }
             }
             if (str.contains(SpecialProcessEnum.SHOULDER_BADGE.getName())) {
                 //特殊模块里面插入肩章
@@ -246,9 +260,11 @@ public class ProcessChartServiceImpl implements ProcessChartService {
                     PartsLibraryDTO partsLibraryDTO = getMapBySevenSleeve(remarkStr, i);
                     optionalMap.putAll(partsLibraryDTO.getOptionalMap());
                 }
-                //袖的共同特征
-                PartsLibraryDTO libraryDTO = getMapByCommonSleeve(remarkStr,i);
-                optionalMap.putAll(libraryDTO.getOptionalMap());
+                if (!str.contains(PartsLibraryEnum.PLEAT.getName()) && !str.contains(PartsLibraryEnum.FOLD.getName())) {
+                    //袖的共同特征
+                    PartsLibraryDTO libraryDTO = getMapByCommonSleeve(remarkStr, i);
+                    optionalMap.putAll(libraryDTO.getOptionalMap());
+                }
 
                 //长袖的特征
                 PartsLibraryDTO partsLibraryDTO = getMapByLongSleeve(remarkStr, i);
@@ -298,10 +314,10 @@ public class ProcessChartServiceImpl implements ProcessChartService {
         if (vitalList.stream().allMatch(str::contains)) {
             //可选模块中插入育克的类型
             optionalMap.put(OverShoulderEnum.FRONT_MERGE_BACK_SHOULDER.getName(), OverShoulderEnum.FRONT_MERGE_BACK_SHOULDER.getType());
-        } else if (!str.contains("前") && str.contains("后")) {
+        } else if (!str.contains("前") && str.contains("后") && str.contains("合并")) {
             //可选模块中插入育克的类型
             optionalMap.put(OverShoulderEnum.REAR_SHOULDER_YUKON.getName(), OverShoulderEnum.REAR_SHOULDER_YUKON.getType());
-        } else {
+        } else if(str.contains("前") && str.contains("后")){
             //可选模块中插入育克的类型
             optionalMap.put(OverShoulderEnum.FRONT_REAR_SHOULDER_YUKON.getName(), OverShoulderEnum.FRONT_REAR_SHOULDER_YUKON.getType());
         }
@@ -412,17 +428,17 @@ public class ProcessChartServiceImpl implements ProcessChartService {
                 }
 
             } else if (string.contains("袖口")) {
-                Map<String,Integer> importantMap = LongSleeveEnum.getImportantMap();
+                Map<String, Integer> importantMap = LongSleeveEnum.getImportantMap();
                 Set<String> stringSet = importantMap.keySet();
-                for (String str : stringSet){
-                    if(string.contains(str)){
+                for (String str : stringSet) {
+                    if (string.contains(str)) {
                         //可选模块中插入袖的类型
-                        optionalMap.put(LongSleeveEnum.getNameByType(importantMap.get(str)),importantMap.get(str));
+                        optionalMap.put(LongSleeveEnum.getNameByType(importantMap.get(str)), importantMap.get(str));
                     }
                 }
-            }else if(string.contains("半袖套")){
+            } else if (string.contains("半袖套")) {
                 //可选模块中插入袖的类型
-                optionalMap.put(LongSleeveEnum.HALF_SLEEVE_COVERS.getName(),LongSleeveEnum.HALF_SLEEVE_COVERS.getType());
+                optionalMap.put(LongSleeveEnum.HALF_SLEEVE_COVERS.getName(), LongSleeveEnum.HALF_SLEEVE_COVERS.getType());
             }
         }
         PartsLibraryDTO dto = new PartsLibraryDTO();
@@ -441,9 +457,9 @@ public class ProcessChartServiceImpl implements ProcessChartService {
             if (map.containsKey(String.valueOf(aChar))) {
                 //可选模块中插入袖的类型
                 optionalMap.put(SevenSleeveEnum.getNameByType(map.get(String.valueOf(aChar))), map.get(String.valueOf(aChar)));
-            }else {
+            } else {
                 //可选模块中插入七分袖的标准类型
-                optionalMap.put(SevenSleeveEnum.STANDARD_SEVENTH_SLEEVE.getName(),SevenSleeveEnum.STANDARD_SEVENTH_SLEEVE.getType());
+                optionalMap.put(SevenSleeveEnum.STANDARD_SEVENTH_SLEEVE.getName(), SevenSleeveEnum.STANDARD_SEVENTH_SLEEVE.getType());
             }
         }
         PartsLibraryDTO dto = new PartsLibraryDTO();
@@ -461,9 +477,9 @@ public class ProcessChartServiceImpl implements ProcessChartService {
             if (map.containsKey(String.valueOf(aChar))) {
                 //可选模块中插入袖的类型
                 optionalMap.put(FiveSleeveEnum.getNameByType(map.get(String.valueOf(aChar))), map.get(String.valueOf(aChar)));
-            }else {
+            } else {
                 //可选模块中插入五分袖的标准类型
-                optionalMap.put(FiveSleeveEnum.STANDARD_FIVE_SLEEVE.getName(),FiveSleeveEnum.STANDARD_FIVE_SLEEVE.getType());
+                optionalMap.put(FiveSleeveEnum.STANDARD_FIVE_SLEEVE.getName(), FiveSleeveEnum.STANDARD_FIVE_SLEEVE.getType());
             }
         }
         PartsLibraryDTO dto = new PartsLibraryDTO();
@@ -477,19 +493,20 @@ public class ProcessChartServiceImpl implements ProcessChartService {
     */
     private PartsLibraryDTO getMapByShortSleeve(String[] remarkStr, int i) {
         String str = remarkStr[i];
-        char[] chars = str.toCharArray();
         //得到首字特征map
         Map<String, Integer> map = ShortSleeveEnum.getFirstCharMap();
         Map<String, Integer> optionalMap = new HashMap<>(16);
-        for (char aChar : chars) {
-            if (map.containsKey(String.valueOf(aChar))) {
+        for (String s : map.keySet()) {
+            if (str.contains(s)) {
                 //可选模块中插入袖的类型
-                optionalMap.put(ShortSleeveEnum.getNameByType(map.get(String.valueOf(aChar))), map.get(String.valueOf(aChar)));
-            }else {
-                //可选模块中插入短袖的标准类型
-                optionalMap.put(ShortSleeveEnum.STANDARD_SHORT_SLEEVE.getName(),ShortSleeveEnum.STANDARD_SHORT_SLEEVE.getType());
+                optionalMap.put(ShortSleeveEnum.getNameByType(map.get(s)), map.get(s));
             }
         }
+        if(map.keySet().stream().noneMatch(str::contains)) {
+            //可选模块中插入短袖的标准类型
+            optionalMap.put(ShortSleeveEnum.STANDARD_SHORT_SLEEVE.getName(), ShortSleeveEnum.STANDARD_SHORT_SLEEVE.getType());
+        }
+
         PartsLibraryDTO dto = new PartsLibraryDTO();
         dto.setOptionalMap(optionalMap);
         return dto;
@@ -535,6 +552,9 @@ public class ProcessChartServiceImpl implements ProcessChartService {
                     if (map.containsKey(String.valueOf(bChar))) {
                         //特殊模块中插入褶的类型
                         specialMap.put(PleatEnum.getNameByType(map.get(String.valueOf(bChar))), map.get(String.valueOf(bChar)));
+                    } else {
+                        //特殊模块中插入褶的类型
+                        specialMap.put(PleatEnum.STANDARD_PLEAT_CUFF.getName(), PleatEnum.STANDARD_PLEAT_CUFF.getType());
                     }
                     if (!Objects.equals(String.valueOf(numberStr), "")) {
                         //得到褶裥的个数
@@ -641,17 +661,15 @@ public class ProcessChartServiceImpl implements ProcessChartService {
                     List<Integer> integers = map.get(String.valueOf(aChar));
                     Map<String, Integer> integerMap = BackPieceEnum.getSecondCharMap(integers);
                     if (i < remarkStr.length - 1) {
+                        //判断下摆后一个字符串里面是否有第二个字的特征信息
                         boolean flag1 = !remarkStr[i + 1].contains(PartsLibraryEnum.SLEEVE.getName()) && integerMap.keySet().stream().anyMatch(s -> remarkStr[i + 1].contains(s));
                         boolean flag2 = Arrays.stream(PartsLibraryEnum.values()).anyMatch(p -> remarkStr[i + 1].contains(p.getName()));
                         if (flag1 || flag2) {
-                            if (flag1) {
-                                String s = integerMap.keySet().stream().filter(s1 -> remarkStr[i + 1].contains(s1)).collect(Collectors.toList()).get(0);
-                                //基本模块中插入下摆的类型
-                                basicMap.put(BackPieceEnum.getNameByType(integerMap.get(s)), integerMap.get(s));
-                            } else {
-                                //基本模块中插入下摆的类型
-                                basicMap.put(BackPieceEnum.getNameByType(integerMap.get("hu")), integerMap.get("hu"));
-                            }
+                            //基本模块中插入下摆的类型
+                            basicMap.put(BackPieceEnum.getNameByType(integerMap.get("不")), integerMap.get("不"));
+                        } else if (remarkStr[i + 1].contains("衩")) {
+                            //基本模块中插入下摆的类型
+                            basicMap.put(BackPieceEnum.getNameByType(integerMap.get("hu")), integerMap.get("hu"));
                         } else {
                             //基本模块中插入下摆的类型
                             basicMap.put(BackPieceEnum.getNameByType(integerMap.get("不")), integerMap.get("不"));
@@ -773,16 +791,17 @@ public class ProcessChartServiceImpl implements ProcessChartService {
             if (str.contains(entry.getKey())) {
                 List<Integer> value = entry.getValue();
                 Map<String, Integer> integerMap = ChestPouchEnum.getSpecialMap(value);
+
                 //把字符串分割成字符数组
                 char[] chars = str.toCharArray();
                 for (char aChar : chars) {
                     if (integerMap.containsKey(String.valueOf(aChar))) {
                         //可选模块
                         optionalMap.put(ChestPouchEnum.getNameByType(integerMap.get(String.valueOf(aChar))), integerMap.get(String.valueOf(aChar)));
-                    } else {
-                        //map会覆盖住
-                        optionalMap.put(ChestPouchEnum.getNameByType(integerMap.get("hu")), integerMap.get("hu"));
                     }
+                }
+                if(!str.contains("右")){
+                        optionalMap.put(ChestPouchEnum.getNameByType(integerMap.get("左")), integerMap.get("左"));
                 }
 
             }

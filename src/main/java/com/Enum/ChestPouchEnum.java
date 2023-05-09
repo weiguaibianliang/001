@@ -138,10 +138,12 @@ public enum ChestPouchEnum {
         for (Integer integer : integers) {
             String name = getNameByType(integer);
             assert name != null;
-            if(name.contains("右") || name.contains("对称")){
+            if(name.contains("右")){
                 integerMap.put("右",integer);
+            }else if(name.contains("对称")){
+                integerMap.put("对称",integer);
             }else {
-                integerMap.put("hu",integer);
+                integerMap.put("左",integer);
             }
         }
         return integerMap;

@@ -68,7 +68,6 @@ public enum OverShoulderEnum {
 
     public static List<String> getListByVital(){
         List<String> list = new ArrayList<>();
-        list.add("前");
         list.add("后");
         list.add("合并");
         return list;

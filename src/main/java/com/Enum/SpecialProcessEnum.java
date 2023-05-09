@@ -56,7 +56,12 @@ public enum SpecialProcessEnum {
      * 领口袖（指一种用于固定领口形状的小片状配件，通常是由塑料或金属制成，
      * 长度与衬衫领口相当。）
      */
-    COLLAR_SLEEVE(10,"领口袖");
+    COLLAR_SLEEVE(10,"领口袖"),
+
+    /**
+     * U形育克
+     */
+    U_SHAPED_YUKON(11,"U形育克");
 
     private Integer type;
 
