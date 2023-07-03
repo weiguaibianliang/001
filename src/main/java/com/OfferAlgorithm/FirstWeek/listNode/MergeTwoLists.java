@@ -1,4 +1,4 @@
-package com.OfferAlgorithm.FirstWeek;
+package com.OfferAlgorithm.FirstWeek.listNode;
 
 import java.util.Arrays;
 import java.util.List;

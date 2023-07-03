@@ -37,13 +37,13 @@ public class DAGPanel extends JPanel {
         g2d.setFont(f);
 
         // 绘制顶点
-        int[] degree = new int[edges.length];
+        int[] degree = new int[edges.length + 1];
         Arrays.fill(degree, 0);
         for (int[] edge : edges) {
             degree[edge[1]]++; // 计算每个顶点的入度
         }
         List<Integer> sources = new ArrayList<>();
-        for (int i = 0; i < edges.length; i++) {
+        for (int i = 0; i < edges.length + 1; i++) {
             int x = PADDING + i * (NODE_SIZE + PADDING -40);
             int y = PADDING + degree[i] * (NODE_SIZE + PADDING + 40);
             if (degree[i] == 0) {
@@ -93,54 +93,54 @@ public class DAGPanel extends JPanel {
     }
 
     public static void main(String[] args) {
-        //输入节点的标签
-        Scanner scanner = new Scanner(System.in);
-        //输入数组的长度
-        System.out.print("输入数组的长度为：");
-        int n = scanner.nextInt();
-        //定义一个数组
-        String[] nodes = new String[n];
-        //输入数组的元素
-        System.out.print("输入数组的元素：");
-        for (int i = 0; i < n; i++){
-            nodes[i] = scanner.next();
-        }
-        System.out.print("输入边的列表:");
-        //定义边的列表的二维数组
-        int m = scanner.nextInt();
-        int[][] edges = new int[m][2];
-        for (int i = 0; i < n;i++){
-            //紧跟顶点的个数
-            System.out.print("输入紧跟顶点的个数：");
-            int a = scanner.nextInt();
-            if(a!= 0){
-                //输入紧跟顶点的数值
-                System.out.print("输入顶点的数值：");
-                int[] intNode = new int[a];
-                for (int j = 0; j < a; j++){
-                    intNode[j] = scanner.nextInt();
-                }
-                //输入数组的起始点
-                System.out.print("输入数组的起始点：");
-                int k = scanner.nextInt();
-                for (m = k; m < k+intNode.length; m++){
-                    edges[m] = new int[]{i, intNode[m-k]};
-                }
-
-            }
-
-        }
-//        int[][] graph = {
-//                {0, 1},
-//                {0, 2},
-//                {0, 3},
-//                {0, 5},
+//        //输入节点的标签
+//        Scanner scanner = new Scanner(System.in);
+//        //输入数组的长度
+//        System.out.print("输入数组的长度为：");
+//        int n = scanner.nextInt();
+//        //定义一个数组
+//        String[] nodes = new String[n];
+//        //输入数组的元素
+//        System.out.print("输入数组的元素：");
+//        for (int i = 0; i < n; i++){
+//            nodes[i] = scanner.next();
+//        }
+//        System.out.print("输入边的列表:");
+//        //定义边的列表的二维数组
+//        int m = scanner.nextInt();
+//        int[][] edges = new int[m][2];
+//        for (int i = 0; i < n;i++){
+//            //紧跟顶点的个数
+//            System.out.print("输入紧跟顶点的个数：");
+//            int a = scanner.nextInt();
+//            if(a!= 0){
+//                //输入紧跟顶点的数值
+//                System.out.print("输入顶点的数值：");
+//                int[] intNode = new int[a];
+//                for (int j = 0; j < a; j++){
+//                    intNode[j] = scanner.nextInt();
+//                }
+//                //输入数组的起始点
+//                System.out.print("输入数组的起始点：");
+//                int k = scanner.nextInt();
+//                for (m = k; m < k+intNode.length; m++){
+//                    edges[m] = new int[]{i, intNode[m-k]};
+//                }
+//
+//            }
+//
+//        }
+        int[][] edges = {
+                {0, 1},
+                {0, 2},
+                {0, 3},
+                {0, 5},
 //                {1, 2},
-//                {2, 4},
-//                {2, 6},
-//                {2, 7}
-//        };
-//        String[] nodes = new String[]{"A","B","C","D","E","F","G","H"};
+                {2, 4},
+                {2, 6},
+//               {2, 7}
+        };
+        String[] nodes = new String[]{"A","B","C","D","E","F","G"};
         JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(500, 500);

@@ -1,4 +1,4 @@
-package com.OfferAlgorithm.FirstWeek;
+package com.OfferAlgorithm.FirstWeek.listNode;
 
 import javax.swing.*;
 import java.awt.*;

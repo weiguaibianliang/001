@@ -1,5 +1,6 @@
 package com.service.impl;
 
+import basic.result.page.PageQuery;
 import com.DTO.PartsLibraryDTO;
 import com.DTO.ProcessChartDTO;
 import com.Enum.*;
@@ -286,6 +287,11 @@ public class ProcessChartServiceImpl implements ProcessChartService {
         list.add(optionalMap);
 
         return list;
+    }
+
+    @Override
+    public List<ProcessChartDTO> getExportList(String produceNo) {
+        return getBasicModuleProcess(produceNo);
     }
 
     private PartsLibraryDTO getMapByCommonSleeve(String[] remarkStr, int i) {

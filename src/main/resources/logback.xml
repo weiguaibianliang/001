@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configuration>
+<configuration debug = "true">
 	<property name="APP_NAME" value="wms_server_assembly"/>
 	<property name="LOG_HOME" value="/home/appLogs/${APP_NAME}-logs"/>
 	<property name="LOG_PREFIX" value="${APP_NAME}"/>
@@ -51,10 +51,32 @@
 		</layout>
 	</appender>
 
+	<appender name="FILE_DEBUG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>DEBUG</level>
+			<OnMismatch>DENY</OnMismatch>
+			<OnMatch>ACCEPT</OnMatch>
+		</filter>
+		<File>${LOG_HOME}/${LOG_PREFIX}Debug.log</File>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${LOG_DIR}/${LOG_PREFIX}Debug%i.log</FileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>${MAX_FILE_SIZE}</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+			<maxHistory>90</maxHistory>
+		</rollingPolicy>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<Pattern>${LOG_MSG}</Pattern>
+		</layout>
+	</appender>
+
 	<root level="${LOG_ROOT_LEVEL}">
 		<appender-ref ref="CONSOLE"/>
 		<appender-ref ref="FILE_ALL"/>
 		<appender-ref ref="FILE_ERROR"/>
 	</root>
+	<root level="DEBUG" />
+
+
 
 </configuration>

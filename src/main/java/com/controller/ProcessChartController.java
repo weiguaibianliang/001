@@ -3,16 +3,20 @@ package com.controller;
 
 import basic.result.RestResponse;
 import basic.result.Success;
+import basic.result.page.PageQuery;
+import com.DTO.ProcessChartDTO;
 import com.service.ProcessChartService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import util.ExcelHeadUtil;
+import util.util.io.ExcelOperate;
+
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -40,8 +44,21 @@ public class ProcessChartController {
     public RestResponse getOverallShirtProcess(@RequestParam("produceNo") String produceNo){
         return new Success<>(processChartService.getOverallShirtProcess(produceNo));
     }
-
-
-
-
+    @ApiOperation("导出衬衫工序表分页")
+    @PostMapping("exportProcessChartPage")
+    public void exportDetailPage(@RequestBody PageQuery query,HttpServletResponse response,@RequestParam("produceNo") String produceNo) {
+        StringBuilder name = new StringBuilder();
+        name.append("衬衫工序表");
+        String fileName = name.toString();
+        List<ProcessChartDTO> exportList = processChartService.getExportList(produceNo);
+        try {
+            ExcelOperate.exportExcel(response, exportList, ExcelHeadUtil.getExcelHead(ProcessChartDTO.class), fileName);
+        } catch (Exception e) {
+            log.error("导出入库明细失败", e);
+        }
+    }
 }
+
+
+
+

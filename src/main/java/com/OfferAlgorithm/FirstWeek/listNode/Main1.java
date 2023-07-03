@@ -1,4 +1,4 @@
-package com.OfferAlgorithm.FirstWeek;
+package com.OfferAlgorithm.FirstWeek.listNode;
 
 class Node {
     int value;

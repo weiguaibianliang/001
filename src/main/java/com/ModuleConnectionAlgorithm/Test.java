@@ -57,15 +57,28 @@ public class Test {
     }
 
     public static void main(String[] args) {
-        Test g = new Test(8);
-        g.addEdge(0, 1);
+        Test g = new Test(7);
         g.addEdge(0, 2);
         g.addEdge(0, 3);
+        g.addEdge(0, 4);
         g.addEdge(0, 5);
+        g.addEdge(0, 6);
+        g.addEdge(1, 0);
         g.addEdge(1, 2);
+        g.addEdge(1, 3);
+        g.addEdge(1, 4);
+        g.addEdge(1, 5);
+        g.addEdge(1, 6);
         g.addEdge(2, 4);
+        g.addEdge(2, 5);
         g.addEdge(2, 6);
-        g.addEdge(2, 7);
+//        g.addEdge(0, 1);
+//        g.addEdge(0, 2);
+//        g.addEdge(0, 3);
+//        g.addEdge(0, 4);
+//        g.addEdge(1, 2);
+//        g.addEdge(1, 3);
+//        g.addEdge(1, 4);
         List<List<Integer>> allToPoSorts = g.allTopologicalSorts();
         for (List<Integer> toPoSort : allToPoSorts) {
             for (Integer integer : toPoSort) {

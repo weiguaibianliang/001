@@ -1,7 +1,6 @@
-package com.OfferAlgorithm.FirstWeek;
+package com.OfferAlgorithm.FirstWeek.listNode;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class DetectCircle {
 
@@ -34,33 +33,36 @@ public class DetectCircle {
         }
         //创建快指针和慢指针
         ListNode slow = headCode;
-        ListNode fast = headCode.getNext();
+        ListNode fast = headCode;
         //首先判断这个单链表是否存在环
         //然后找到快慢指针相遇的位置
-        while (slow != fast){
+        while (true){
             if(fast == null || fast.getNext() == null){
                 return null;
             }
             slow = slow.getNext();
             fast = fast.getNext().getNext();
+            if(fast == slow){
+                break;
+            }
         }
 
         //然后根据推出的规律，让慢指针从起点重新开始，快指针在相遇点开始
         slow = headCode;
-        fast = fast.getNext();
         while (slow != fast){
+            //让快慢指针运行的速度相等
             fast = fast.getNext();
             slow = slow.getNext();
 
         }
-        return slow;
+        return fast;
     }
 
     private static Boolean hasCycle(ListNode headCode) {
         if(headCode == null || headCode.getNext() == null){
             return false;
         }
-        //创建快指针和满指针
+        //创建快指针和满指针,初始化快指针和慢指针。
         ListNode slow = headCode;
         ListNode fast = headCode.getNext();
         //判断快指针和慢指针会不会相遇
@@ -112,6 +114,7 @@ public class DetectCircle {
             tail = node;
         }
         //将最后一个结点指向指定结点
+        //注意每一个节点的内存地址，内存地址变了，节点也会发生变化。
         ListNode last = listNodeMap.get(3);
         tail.setNext(last);
         return head.getNext();

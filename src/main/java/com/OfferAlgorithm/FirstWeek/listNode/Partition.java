@@ -1,6 +1,5 @@
-package com.OfferAlgorithm.FirstWeek;
+package com.OfferAlgorithm.FirstWeek.listNode;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
