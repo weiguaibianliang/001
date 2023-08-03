@@ -1,12 +1,17 @@
-package com.ModuleConnectionAlgorithm;
+package com.ModuleConnectionAlgorithm.SomeAlgorithms.basicGenetic;
+
+import com.ModuleConnectionAlgorithm.TopologicalOrderAlgorithm.Test;
+import org.apache.commons.collections.CollectionUtils;
 
 import java.util.*;
 
-public class Test {
+import static java.util.stream.Collectors.toList;
+
+public class RestrictiveCondition {
     private final int V; // 顶点数
     private final Map<Integer, List<Integer>> adj; // 邻接表
 
-    public Test(int V) {
+    public RestrictiveCondition(int V) {
         this.V = V;
         adj = new HashMap<>();
         for (int i = 0; i < V; i++) {
@@ -56,14 +61,36 @@ public class Test {
         }
     }
 
+    public boolean isValidPath(List<Integer> path,List<List<Integer>> allToPoSorts){
+
+//        for (int i = 0; i < path.size(); i++) {
+//            List<Integer> integerList = path.subList(i+1,path.size()-1);
+//            List<Integer> pathList = adj.get(path.get(i));
+//            //得到两个集合的交集
+//            List<Integer> intersectionList = integerList.stream().filter(pathList::contains).collect(toList());
+//            if(CollectionUtils.isEmpty(pathList)){
+//
+//            }
+//            if(new HashSet<>(integerList).containsAll(pathList)){
+//                return true;
+//            }
+//        }
+        for (List<Integer> allToPoSort : allToPoSorts) {
+            if (path.equals(allToPoSort)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static void main(String[] args) {
-        Test g = new Test(7);
+        RestrictiveCondition g = new RestrictiveCondition(7);
+        g.addEdge(0, 1);
         g.addEdge(0, 2);
         g.addEdge(0, 3);
         g.addEdge(0, 4);
         g.addEdge(0, 5);
         g.addEdge(0, 6);
-        g.addEdge(1, 0);
         g.addEdge(1, 2);
         g.addEdge(1, 3);
         g.addEdge(1, 4);
@@ -72,13 +99,6 @@ public class Test {
         g.addEdge(2, 4);
         g.addEdge(2, 5);
         g.addEdge(2, 6);
-//        g.addEdge(0, 1);
-//        g.addEdge(0, 2);
-//        g.addEdge(0, 3);
-//        g.addEdge(0, 4);
-//        g.addEdge(1, 2);
-//        g.addEdge(1, 3);
-//        g.addEdge(1, 4);
         List<List<Integer>> allToPoSorts = g.allTopologicalSorts();
         for (List<Integer> toPoSort : allToPoSorts) {
             for (Integer integer : toPoSort) {
@@ -87,5 +107,14 @@ public class Test {
             System.out.println();
         }
         System.out.println("该衬衫总共有"+allToPoSorts.size()+"种连接组合方式！");
+        List<Integer> list = new ArrayList<>();
+        list.add(0);
+        list.add(1);
+        list.add(3);
+        list.add(2);
+        list.add(6);
+        list.add(5);
+        list.add(4);
+        System.out.println(g.isValidPath(list,allToPoSorts));
     }
 }

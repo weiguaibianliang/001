@@ -1,4 +1,4 @@
-package com.ModuleConnectionAlgorithm;
+package com.ModuleConnectionAlgorithm.TopologicalOrderAlgorithm;
 
 import javax.swing.*;
 import java.awt.*;
@@ -6,7 +6,6 @@ import java.awt.geom.Path2D;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Scanner;
 
 
 public class DAGPanel extends JPanel {

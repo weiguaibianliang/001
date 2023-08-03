@@ -9,6 +9,9 @@ import java.util.Map;
 
 public enum CollarEnum {
 
+    //解决hash冲突，将所有哈希地址相同的记录都链接在同一链表中。
+    //基本思想是将所有哈希地址为i的元素构成一个为同义词链的单链表。
+
     /**
      * 领子上的纽扣得考虑
      */

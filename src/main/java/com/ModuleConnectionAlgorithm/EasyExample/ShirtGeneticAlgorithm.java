@@ -3,8 +3,16 @@ package com.ModuleConnectionAlgorithm.EasyExample;
 import java.util.Arrays;
 import java.util.Random;
 
+
+/**
+ * 1、编码，采用十进制编码，这种编码方式的种群稳定性较高，效率更高，复杂性更低。
+ * 2、遗传参数：种群数量、迭代次数、交叉概率、变异概率
+ * 3、遗传算子：选择、交叉、变异
+ * 4、适应度函数：各个评价指标矩阵
+ */
+
 public class ShirtGeneticAlgorithm {
-    private static final int POPULATION_SIZE = 100;
+    private static final int POPULATION_SIZE = 50;
     private static final int MAX_GENERATIONS = 100;
     private static final double MUTATION_RATE = 0.1;
 
